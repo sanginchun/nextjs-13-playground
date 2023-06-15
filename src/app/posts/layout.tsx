@@ -5,7 +5,7 @@ export default function UserLayout({
 }) {
   return (
     <section>
-      <div>Posts 공통 레이아웃</div>
+      <div>Posts Common Layout</div>
       {children}
     </section>
   );
