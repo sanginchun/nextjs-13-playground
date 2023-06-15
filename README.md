@@ -1,34 +1,20 @@
+# Next.js 13 playground
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+Changes are made to the default project, to test new features of Next.js 13 and React 18; `app` routing files, server components, streaming (SSR), transitions.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+_For better demonstration, API fetches are delayed and NOT cached._
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `/posts` page demonstrates the component hierarchy and the usage of `Suspense`, `Fallback` and streaming.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  1. The common `layout` is in view, while posts are loading with the `loading` component.
+  2. Posts are in view, while the `UserInfo` and the `Comments` are loading with their own `fallback`s.
+  3. `UserInfo` is in view, and `Comments` is in view.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `/todos` page demonstrates an example of client-side state change causing a refetch to the data source while still making use of SSR.
+  1. By clicking the buttons: `ALL`, `DONE`, `NOT DONE`, url changes. (`router.push`)
+  2. Next.js performs client-side navigation to the url, while data fetches are made by the server.
+  3. Notice that the button colors change immediately, while the `TodoList` changes slowly. Also dimmed effect is shown, using `isPending`, `startTransition`. Try `router.push` without them to compare.
