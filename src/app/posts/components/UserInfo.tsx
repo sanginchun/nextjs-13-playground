@@ -1,19 +1,19 @@
-async function getUser(userId: string) {
-  const res = await new Promise((res) => {
-    setTimeout(() => {
-      res(
-        fetch(`https://jsonplaceholder.typicode.com/users/${userId}`, {
-          cache: 'no-store',
-        })
-      );
-    }, 1000);
-  });
+import type { User } from '../../../../@types';
+import delay from '@/utils/delay';
+
+async function getUser(userId: number) {
+  const res = await delay(
+    1000,
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`, {
+      cache: 'no-store',
+    })
+  );
 
   return res.json();
 }
 
-export default async function UserInfo({ userId }: { userId: string }) {
-  const user = await getUser(userId);
+export default async function UserInfo({ userId }: { userId: number }) {
+  const user = (await getUser(userId)) as User;
 
   return (
     <div>

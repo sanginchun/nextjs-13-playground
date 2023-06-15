@@ -1,3 +1,4 @@
+import type { Post } from '../../../@types';
 import { Suspense } from 'react';
 import UserInfo from './components/UserInfo';
 import Comments from './components/Comments';
@@ -15,7 +16,7 @@ async function getData() {
 }
 
 export default async function Posts() {
-  const data = await getData();
+  const data = (await getData()) as Post[];
 
   return (
     <div className="px-16 py-8">

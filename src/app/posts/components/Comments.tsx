@@ -1,22 +1,19 @@
-async function getComments(postId: string) {
-  const res = await new Promise((res) => {
-    setTimeout(() => {
-      res(
-        fetch(
-          `https://jsonplaceholder.typicode.com/comments?postId=${postId}`,
-          {
-            cache: 'no-store',
-          }
-        )
-      );
-    }, 3000);
-  });
+import type { Comment } from '../../../../@types';
+import delay from '@/utils/delay';
+
+async function getComments(postId: number) {
+  const res = await delay(
+    3000,
+    fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`, {
+      cache: 'no-store',
+    })
+  );
 
   return res.json();
 }
 
-export default async function Comments({ postId }: { postId: string }) {
-  const comments = await getComments(postId);
+export default async function Comments({ postId }: { postId: number }) {
+  const comments = (await getComments(postId)) as Comment[];
 
   return comments.map((v) => (
     <div className="p-4" key={v.id}>
